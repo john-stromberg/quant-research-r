@@ -1,0 +1,25 @@
+---
+title: 'Econometrics Module Report'
+format: html
+execute:
+  echo: false
+---
+
+## Analytical question
+
+What is the key empirical question this module is designed to test?
+
+## Method summary
+
+- Define hypothesis
+- Load and validate data
+- Run baseline model
+- Summarize robustness checks
+
+## Decision memo
+
+- **Question:** What decision is informed by this model?
+- **Evidence:** Core output table(s).
+- **Interpretation:** Main effect direction and significance.
+- **Action:** Keep, refine, or reject modeling approach.
+
