@@ -1,0 +1,30 @@
+---
+title: "Time-Series Forecasting Pipeline Report"
+format: html
+execute:
+  echo: false
+---
+
+## Analytical question
+
+How well can baseline and statistical time-series models forecast the next 12 periods, and which model is most reliable under rolling validation?
+
+## Method summary
+
+- Ingest and validate monthly series
+- Engineer calendar features and convert to tsibble
+- Fit ETS, ARIMA, and seasonal naive baselines
+- Compare models with rolling backtest diagnostics
+
+## Outputs to review
+
+- Point forecast trajectories
+- Backtest performance over time
+- Error metric summary (RMSE, MAE, MAPE)
+
+## Decision memo
+
+- **Question:** Which model should be deployed for next-cycle forecasting?
+- **Evidence:** Accuracy table and rolling backtest stability.
+- **Interpretation:** Prefer model with lowest stable error profile.
+- **Action:** Promote selected model and monitor drift monthly.
