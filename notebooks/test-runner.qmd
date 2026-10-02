@@ -1,0 +1,46 @@
+---
+title: "Test Runner Notebook (Quarto)"
+format: html
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Purpose
+
+This notebook documents the role of `tests/testthat.R` as the project-level test entrypoint and demonstrates repeatable test execution.
+
+## Setup
+
+```{r}
+# We load testthat directly to mirror the test runner.
+# A single entrypoint reduces ambiguity about how validation is invoked across environments.
+library(testthat)
+source("R/core.R")
+```
+
+## 1) Test runner anatomy
+
+```{r}
+# Inspect the canonical test runner used by the project.
+cat(readLines("tests/testthat.R"), sep = "\n")
+```
+
+## 2) Execute tests from notebook context
+
+```{r}
+# Running tests in notebook context is useful for pedagogical walkthroughs,
+# though CI should run tests through a scripted command.
+test_dir("tests/testthat")
+```
+
+## 3) Interpretation guidance
+
+A green test suite indicates:
+
+- interface contracts are still honored
+- validation guards still fail where expected
+- end-to-end orchestration remains operational
+
+It does **not** by itself prove external validity or predictive generalization.

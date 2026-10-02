@@ -6,6 +6,7 @@ _targets/
 *.html
 *_files/
 .vscode/
+.vs/
 .DS_Store
 Thumbs.db
 

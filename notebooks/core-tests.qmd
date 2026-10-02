@@ -1,0 +1,64 @@
+---
+title: "Core Tests Notebook (Quarto)"
+format: html
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Purpose
+
+This notebook provides a line-by-line conceptual reading of `tests/testthat/test-core.R`, emphasizing why each test exists from a methodological quality perspective.
+
+## Setup
+
+```{r}
+library(testthat)
+library(tibble)
+source("R/core.R")
+```
+
+## 1) Inspect test file
+
+```{r}
+# Printing test definitions helps reviewers map assertions to functional requirements.
+cat(readLines("tests/testthat/test-core.R"), sep = "\n")
+```
+
+## 2) Recreate representative assertions
+
+```{r}
+# Example: schema requirement check.
+expect_error(
+  validate_input_data(tibble(a = c(1, 2), y = c(2, 3))),
+  "Missing required columns"
+)
+
+# Example: NA rejection check.
+expect_error(
+  validate_input_data(tibble(x = c(1, NA), y = c(2, 3))),
+  "contains NA values"
+)
+```
+
+## 3) Validate model artifact expectations
+
+```{r}
+# Ensure prediction and metric interfaces remain stable.
+df <- tibble(x = c(1, 2, 3, 4), y = c(2, 5, 10, 17))
+features <- prepare_features(df)
+model <- fit_baseline_model(features)
+preds <- generate_predictions(model, features)
+metrics <- compute_metrics(preds)
+
+stopifnot("prediction" %in% names(preds))
+stopifnot(all(c("rows", "rmse", "mae", "r_squared") %in% names(metrics)))
+metrics
+```
+
+## 4) Why these tests matter
+
+- They protect input assumptions needed for interpretable model behavior.
+- They catch silent contract regressions in returned artifacts.
+- They reinforce reproducibility by making failure modes explicit.

@@ -1,0 +1,70 @@
+---
+title: "Targets Pipeline Notebook (Quarto)"
+format: html
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Purpose
+
+This notebook explains `_targets.R` as a reproducibility mechanism. The pipeline formalizes dependency tracking between configuration, data transformations, model artifacts, and reporting outputs.
+
+## Setup
+
+```{r}
+library(targets)
+source("R/core.R")
+```
+
+## 1) Pipeline script inspection
+
+```{r}
+# Reading the target script is useful for auditing computational lineage.
+# In an academic context, this helps demonstrate that outputs are derived from explicit dependencies.
+cat(readLines("_targets.R"), sep = "\n")
+```
+
+## 2) Why targets matter for research reproducibility
+
+The `targets` framework:
+
+- tracks upstream/downstream dependencies
+- re-runs only invalidated steps
+- stores computational artifacts for inspection
+- improves auditability of empirical results
+
+## 3) Execute pipeline
+
+```{r}
+# tar_make() executes only what is outdated.
+# This property is critical for reproducible iteration in empirical projects.
+tar_make()
+```
+
+## 4) Inspect key target artifacts
+
+```{r}
+# Extracting target outputs makes post-hoc methodological review straightforward.
+# Metrics and predictions are typically the first artifacts examined in model evaluation.
+metrics <- tar_read(metrics)
+predictions <- tar_read(predictions)
+
+metrics
+head(predictions, 10)
+```
+
+## 5) Report target behavior
+
+```{r}
+# The report target is resilient to missing Quarto CLI.
+# If Quarto is unavailable, a sentinel value is produced instead of hard-failing the full pipeline.
+tar_read(report)
+```
+
+## Notes for extension
+
+- Add separate targets for train/test splits.
+- Add target branches for model families.
+- Add diagnostics target for residual plots and model assumptions.

@@ -5,6 +5,33 @@ execute:
   echo: false
 ---
 
+```{r}
+library(targets)
+library(dplyr)
+
+tar_load(metrics, predictions, model)
+```
+
+## Model performance
+
+```{r}
+metrics
+```
+
+## Prediction sample
+
+```{r}
+predictions %>%
+  select(x, y, prediction) %>%
+  head(10)
+```
+
+## Model summary
+
+```{r}
+summary(model)
+```
+
 ## Analytical question
 
 What is the key empirical question this module is designed to test?
