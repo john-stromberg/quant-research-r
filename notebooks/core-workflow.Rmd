@@ -20,6 +20,21 @@ library(yaml)
 source("R/core.R")
 ```
 
+## Learning checkpoint: environment readiness
+
+Run the next cell and confirm all checks return `TRUE`.
+
+```{r}
+required_files <- c("R/core.R", "config/config.yml", "data_raw/sample.csv")
+file_check <- tibble::tibble(
+  file = required_files,
+  exists = file.exists(required_files)
+)
+file_check
+
+all(file_check$exists)
+```
+
 ## 1) Configuration loading and contract checks
 
 ```{r}
@@ -48,6 +63,22 @@ raw_data
 #  - no missing values in required fields
 valid_data <- validate_input_data(raw_data)
 valid_data
+```
+
+### Learning checkpoint: intentional validation failure
+
+This chunk deliberately creates a bad dataset to show how validation errors communicate broken assumptions.
+
+```{r}
+bad_data <- tibble::tibble(x = c(1, NA), y = c(2, 3))
+
+tryCatch(
+  validate_input_data(bad_data),
+  error = function(e) {
+	message("Expected validation error: ", e$message)
+	NULL
+  }
+)
 ```
 
 ## 4) Feature engineering
@@ -80,6 +111,20 @@ predictions
 metrics
 ```
 
+### Learning checkpoint: inspect residual behavior
+
+```{r}
+learning_diagnostics <- predictions %>%
+  mutate(
+	residual = y - prediction,
+	abs_residual = abs(residual)
+  )
+
+learning_diagnostics
+
+summary(learning_diagnostics$residual)
+```
+
 ## 7) End-to-end orchestration
 
 ```{r}
@@ -88,6 +133,14 @@ metrics
 out <- run_nowcast_pipeline("config/config.yml")
 names(out)
 out$metrics
+```
+
+### Learning checkpoint: compare manual vs orchestrated metrics
+
+The following chunk confirms that manual stage-by-stage execution matches the orchestrated pipeline output.
+
+```{r}
+all.equal(metrics, out$metrics)
 ```
 
 ## Notes for extension

@@ -38,6 +38,17 @@ expect_error(
 )
 ```
 
+### Learning checkpoint: verify the success path explicitly
+
+```{r}
+# In addition to failure checks, learners should observe valid inputs flowing through unchanged.
+good_data <- tibble(x = c(1, 2, 3), y = c(2, 5, 10))
+validated <- validate_input_data(good_data)
+
+validated
+identical(validated, good_data)
+```
+
 ## 3) Validate model artifact expectations
 
 ```{r}
@@ -53,7 +64,22 @@ stopifnot(all(c("rows", "rmse", "mae", "r_squared") %in% names(metrics)))
 metrics
 ```
 
-## 4) Why these tests matter
+### Learning checkpoint: inspect coefficient and residual outputs
+
+```{r}
+# This chunk links testing to statistical intuition by surfacing model internals.
+coef(model)
+residuals(model)
+```
+
+## 4) Execute the full test file from notebook
+
+```{r}
+# This demonstrates how all checks are run together.
+test_file("tests/testthat/test-core.R")
+```
+
+## 5) Why these tests matter
 
 - They protect input assumptions needed for interpretable model behavior.
 - They catch silent contract regressions in returned artifacts.

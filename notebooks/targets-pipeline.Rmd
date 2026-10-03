@@ -14,6 +14,14 @@ library(targets)
 source("R/core.R")
 ```
 
+## Learning checkpoint: enumerate planned targets
+
+```{r}
+# tar_manifest() provides a compact map of what the pipeline plans to build.
+# Use this before execution to understand the computational graph.
+tar_manifest()
+```
+
 ## 1) Pipeline script inspection
 
 ```{r}
@@ -39,6 +47,14 @@ The `targets` framework:
 tar_make()
 ```
 
+### Learning checkpoint: identify what is currently outdated
+
+```{r}
+# Immediately after a successful run, this should usually return character(0).
+# If not empty, the listed targets are pending rebuild.
+tar_outdated()
+```
+
 ## 4) Inspect key target artifacts
 
 ```{r}
@@ -51,12 +67,30 @@ metrics
 head(predictions, 10)
 ```
 
+### Learning checkpoint: inspect target metadata
+
+```{r}
+# Metadata includes timing, size, and hash signals useful for auditability.
+tar_meta(fields = c(name, time, bytes))
+```
+
 ## 5) Report target behavior
 
 ```{r}
 # The report target is resilient to missing Quarto CLI.
 # If Quarto is unavailable, a sentinel value is produced instead of hard-failing the full pipeline.
 tar_read(report)
+```
+
+### Learning checkpoint: verify report fallback behavior
+
+```{r}
+report_value <- tar_read(report)
+if (identical(report_value, "quarto-not-installed")) {
+  message("Quarto CLI not found: fallback sentinel returned as designed.")
+} else {
+  message("Report artifact generated at: ", report_value)
+}
 ```
 
 ## Notes for extension
