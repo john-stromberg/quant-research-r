@@ -1,0 +1,12 @@
+data:
+  input_path: data_raw/sample_series.csv
+  date_col: date
+  value_col: value
+
+model:
+  horizon: 12 months
+
+backtest:
+  initial_window: 36
+  step: 1
+  h: 1
