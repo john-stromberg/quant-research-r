@@ -22,5 +22,8 @@ The source commit and tree for each import are recorded in [IMPORTS.json](IMPORT
 the complete imported commit histories are retained. Run each project from its own
 directory. There is no shared installation or unified API.
 
+Five econometrics projects currently share a small example implementation
+rather than their named methods. They are identified in the [roadmap](ROADMAP.md).
+
 Project-level GitHub Actions files are preserved as references. GitHub only runs
 workflows located under this repository's root `.github/workflows/` directory.
