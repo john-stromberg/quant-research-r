@@ -1,0 +1,10 @@
+data:
+  manager_returns_csv: data_raw/manager_returns.csv
+  benchmark_returns_csv: data_raw/benchmark_returns.csv
+  sector_weights_csv: data_raw/sector_weights.csv
+  fred_series:
+    rates_proxy: DGS10
+
+alerts:
+  underperformance_threshold: -0.01
+  persistence_periods: 3

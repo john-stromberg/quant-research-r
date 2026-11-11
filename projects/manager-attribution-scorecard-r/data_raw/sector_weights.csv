@@ -1,0 +1,13 @@
+date,manager,sector,portfolio_weight,benchmark_weight,portfolio_return,benchmark_return
+2024-04-30,MGR_A,Tech,0.35,0.30,0.014,0.010
+2024-04-30,MGR_A,Health,0.25,0.25,0.007,0.006
+2024-04-30,MGR_A,Financials,0.20,0.25,0.005,0.004
+2024-04-30,MGR_A,Industrials,0.20,0.20,0.006,0.006
+2024-04-30,MGR_B,Tech,0.28,0.30,0.011,0.010
+2024-04-30,MGR_B,Health,0.27,0.25,0.006,0.006
+2024-04-30,MGR_B,Financials,0.25,0.25,0.004,0.004
+2024-04-30,MGR_B,Industrials,0.20,0.20,0.005,0.006
+2024-04-30,MGR_C,Tech,0.22,0.30,-0.003,0.010
+2024-04-30,MGR_C,Health,0.28,0.25,0.001,0.006
+2024-04-30,MGR_C,Financials,0.30,0.25,-0.002,0.004
+2024-04-30,MGR_C,Industrials,0.20,0.20,-0.001,0.006

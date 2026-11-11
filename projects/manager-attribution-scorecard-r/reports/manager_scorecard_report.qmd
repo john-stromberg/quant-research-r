@@ -1,0 +1,29 @@
+---
+title: "Manager Attribution Scorecard"
+format: html
+execute:
+  echo: false
+---
+
+## Analytical question
+
+Which managers show persistent positive active contribution and which are breaching review thresholds?
+
+## Method summary
+
+- Compute active returns vs benchmark
+- Decompose sector-level allocation/selection effects
+- Rank managers by cumulative active return and volatility-adjusted profile
+- Trigger alerts based on underperformance persistence
+
+## Expected outputs
+
+- `data_processed/manager_scorecard.csv`
+- `data_processed/manager_alerts.csv`
+
+## Decision memo
+
+- **Question:** Which managers should be retained, reviewed, or de-allocated?
+- **Evidence:** Scorecard ranking + attribution effects + alert flags.
+- **Interpretation:** Distinguish short-term noise from persistent underperformance.
+- **Action:** Maintain, watchlist, or reduce mandate allocation.
