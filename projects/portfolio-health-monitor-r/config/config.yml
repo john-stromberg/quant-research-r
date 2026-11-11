@@ -1,0 +1,15 @@
+data:
+  portfolio_returns_csv: data_raw/portfolio_returns.csv
+  benchmark_returns_csv: data_raw/benchmark_returns.csv
+  holdings_csv: data_raw/holdings.csv
+  fred_series:
+    - DGS10
+    - CPIAUCSL
+
+monitoring:
+  rolling_window_days: 60
+
+alerts:
+  max_drawdown_breach: -0.08
+  volatility_spike: 0.20
+  tracking_error_spike: 0.06

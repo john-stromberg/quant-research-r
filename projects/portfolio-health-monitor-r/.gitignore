@@ -1,0 +1,19 @@
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# targets artifacts
+_targets/
+
+# Quarto/R Markdown output
+*.html
+*_files/
+
+# data/cache
+cache/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
