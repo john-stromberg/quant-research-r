@@ -1,0 +1,101 @@
+{
+  "formatVersion": 1,
+  "projects": [
+    {
+      "name": "factor-research-lab-r",
+      "path": "projects/factor-research-lab-r",
+      "source": "https://github.com/john-stromberg/factor-research-lab-r",
+      "branch": "master",
+      "commit": "678389d6aa100cf9402a4eed9d37f9d8c133a621",
+      "tree": "42f678e9f0f0605a26844216e34e3bbcfd1573ba"
+    },
+    {
+      "name": "macro-regime-allocation-r",
+      "path": "projects/macro-regime-allocation-r",
+      "source": "https://github.com/john-stromberg/macro-regime-allocation-r",
+      "branch": "master",
+      "commit": "81b5a3d962d575a9d86dfd417b1d1239ae14c469",
+      "tree": "19b79fbe2bd926889eb0079caab862cd628e9581"
+    },
+    {
+      "name": "forecasting-nowcasting-lab-r",
+      "path": "projects/forecasting-nowcasting-lab-r",
+      "source": "https://github.com/john-stromberg/forecasting-nowcasting-lab-r",
+      "branch": "master",
+      "commit": "ebec0e035ca1a196bd4ff8b1ecc179d7318df68c",
+      "tree": "5f5c874affad750178018fc2a63979c44166a9ff"
+    },
+    {
+      "name": "r-time-series-forecasting-pipeline",
+      "path": "projects/r-time-series-forecasting-pipeline",
+      "source": "https://github.com/john-stromberg/r-time-series-forecasting-pipeline",
+      "branch": "master",
+      "commit": "a1459a82c83b405714d1fac274c1ba1a480fecc4",
+      "tree": "192d8dea1ec6a64df6da268fe5cbdc42f4dc5c9e"
+    },
+    {
+      "name": "manager-attribution-scorecard-r",
+      "path": "projects/manager-attribution-scorecard-r",
+      "source": "https://github.com/john-stromberg/manager-attribution-scorecard-r",
+      "branch": "master",
+      "commit": "fd4614ea03b013cbaa8d89e05dc8a85f1066ce79",
+      "tree": "4887d80e794f51bf18c3d52f58b6ff6da8471a1c"
+    },
+    {
+      "name": "rebalance-engine-with-costs-r",
+      "path": "projects/rebalance-engine-with-costs-r",
+      "source": "https://github.com/john-stromberg/rebalance-engine-with-costs-r",
+      "branch": "master",
+      "commit": "14c51bf8c01d17c3fc0f4d6ca448c574f3422ce2",
+      "tree": "e6850bec38e8d99fd5009a6f13c1bd825b7140ed"
+    },
+    {
+      "name": "portfolio-health-monitor-r",
+      "path": "projects/portfolio-health-monitor-r",
+      "source": "https://github.com/john-stromberg/portfolio-health-monitor-r",
+      "branch": "master",
+      "commit": "c4740e16b9bf23e1b1663156bd52e9daa90b4869",
+      "tree": "ea3f8e685305572df45ea93f25a274878d9ad503"
+    },
+    {
+      "name": "time-series-econometrics-var-vecm-r",
+      "path": "projects/time-series-econometrics-var-vecm-r",
+      "source": "https://github.com/john-stromberg/time-series-econometrics-var-vecm-r",
+      "branch": "master",
+      "commit": "5191cf60dd73762061ee54a9e7a1b8fff728b434",
+      "tree": "08a1f0b75eadf5c86116a8241d25ddeaac6a023b"
+    },
+    {
+      "name": "iv-rdd-toolkit-r",
+      "path": "projects/iv-rdd-toolkit-r",
+      "source": "https://github.com/john-stromberg/iv-rdd-toolkit-r",
+      "branch": "master",
+      "commit": "a87031f94860abb595f730433e2cd20efe52bd1d",
+      "tree": "fb226d7538b404c4698786a63a39cab5e58b2f56"
+    },
+    {
+      "name": "synthetic-control-lab-r",
+      "path": "projects/synthetic-control-lab-r",
+      "source": "https://github.com/john-stromberg/synthetic-control-lab-r",
+      "branch": "master",
+      "commit": "278cf99f3131f721a4342fbb043c1e2e0777b364",
+      "tree": "cd0d1e6a8e0cef01da264707d99d53970e6175aa"
+    },
+    {
+      "name": "causal-inference-did-event-study-r",
+      "path": "projects/causal-inference-did-event-study-r",
+      "source": "https://github.com/john-stromberg/causal-inference-did-event-study-r",
+      "branch": "master",
+      "commit": "0c696ae79f34f55cbcaf08bc8ce7b7957529c24d",
+      "tree": "a0fa0ee6b9ee72c407c7e01b31a9defc21a5f623"
+    },
+    {
+      "name": "panel-data-models-r",
+      "path": "projects/panel-data-models-r",
+      "source": "https://github.com/john-stromberg/panel-data-models-r",
+      "branch": "master",
+      "commit": "49cb27a6701009de2c352da7fc6c41a6ef7d6108",
+      "tree": "c867c27f2a4524de8f3fd68a13d3a431601a3ad9"
+    }
+  ]
+}
