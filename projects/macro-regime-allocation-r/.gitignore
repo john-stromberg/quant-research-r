@@ -1,0 +1,12 @@
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+_targets/
+*.html
+*_files/
+.vscode/
+.vs/
+data_processed/
+.DS_Store
+Thumbs.db
