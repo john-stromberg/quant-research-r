@@ -1,0 +1,30 @@
+---
+title: "Rebalance Engine with Costs Report"
+format: html
+execute:
+  echo: false
+---
+
+## Analytical question
+
+Does current portfolio drift justify a rebalance after accounting for implementation costs?
+
+## Method summary
+
+- Measure drift vs target weights
+- Check trigger threshold
+- Estimate fixed + proportional + slippage costs
+- Compare gross impact and net-of-cost impact
+
+## Expected outputs
+
+- `data_processed/drift_table.csv`
+- `data_processed/cost_table.csv`
+- `data_processed/impact_table.csv`
+
+## Decision memo
+
+- **Question:** Rebalance now or defer?
+- **Evidence:** Drift magnitude, cost estimate, net impact.
+- **Interpretation:** Trigger + positive net benefit supports execution.
+- **Action:** Execute rebalance or retain current allocation.

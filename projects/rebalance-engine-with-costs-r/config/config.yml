@@ -1,0 +1,14 @@
+data:
+  weights_csv: data_raw/current_weights.csv
+  targets_csv: data_raw/target_weights.csv
+  returns_csv: data_raw/asset_returns.csv
+  fred_series:
+    rates_proxy: DGS10
+
+rebalance:
+  drift_threshold: 0.03
+
+costs:
+  fixed_cost_bps: 2
+  proportional_cost_bps: 8
+  slippage_multiplier: 1.25
