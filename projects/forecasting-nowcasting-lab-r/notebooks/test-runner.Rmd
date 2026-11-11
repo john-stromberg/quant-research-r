@@ -1,0 +1,75 @@
+---
+title: "Test Runner Notebook (R Markdown)"
+output: html_document
+---
+
+## Purpose
+
+This notebook documents the role of `tests/testthat.R` as the project-level test entrypoint and demonstrates repeatable test execution.
+
+## Setup
+
+```{r}
+# We load testthat directly to mirror the test runner.
+# A single entrypoint reduces ambiguity about how validation is invoked across environments.
+library(testthat)
+source("R/core.R")
+```
+
+## Learning checkpoint: discover available tests
+
+```{r}
+# Listing test files before execution helps learners map scope.
+list.files("tests/testthat", pattern = "^test-.*\\.R$", full.names = TRUE)
+```
+
+## 1) Test runner anatomy
+
+```{r}
+# Inspect the canonical test runner used by the project.
+cat(readLines("tests/testthat.R"), sep = "\n")
+```
+
+## 2) Execute tests from notebook context
+
+```{r}
+# Running tests in notebook context is useful for pedagogical walkthroughs,
+# though CI should run tests through a scripted command.
+test_dir("tests/testthat")
+```
+
+## 3) Learning checkpoint: run an individual test file
+
+```{r}
+# Running a single file helps isolate failures while learning.
+test_file("tests/testthat/test-core.R")
+```
+
+## 4) Learning checkpoint: quick debugging pattern
+
+```{r}
+# This chunk demonstrates a lightweight debug cycle:
+# 1) create a known-bad input
+# 2) run the target function
+# 3) capture and inspect the error message
+bad_input <- tibble::tibble(a = c(1, 2), y = c(2, 3))
+debug_msg <- tryCatch(
+  {
+	validate_input_data(bad_input)
+	"No error (unexpected)"
+  },
+  error = function(e) e$message
+)
+
+debug_msg
+```
+
+## 5) Interpretation guidance
+
+A green test suite indicates:
+
+- interface contracts are still honored
+- validation guards still fail where expected
+- end-to-end orchestration remains operational
+
+It does **not** by itself prove external validity or predictive generalization.

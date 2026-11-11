@@ -1,0 +1,154 @@
+---
+title: "Core Workflow Notebook (Quarto)"
+format: html
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Purpose
+
+This notebook documents the analytical role of `R/core.R` in a research pipeline. It explains each function as a methodological block: configuration control, data integrity constraints, feature construction, model fitting, prediction generation, and evaluation metrics.
+
+## Setup
+
+```{r}
+# Load core dependencies required for the full workflow.
+# We explicitly load these libraries in the notebook to mirror execution assumptions in the target pipeline.
+library(dplyr)
+library(readr)
+library(yaml)
+
+# Source project functions.
+source("R/core.R")
+```
+
+## Learning checkpoint: environment readiness
+
+Run the next cell and confirm all checks return `TRUE`.
+
+```{r}
+required_files <- c("R/core.R", "config/config.yml", "data_raw/sample.csv")
+file_check <- tibble::tibble(
+  file = required_files,
+  exists = file.exists(required_files)
+)
+file_check
+
+all(file_check$exists)
+```
+
+## 1) Configuration loading and contract checks
+
+```{r}
+# The config object is the single source of truth for input paths.
+# Academic reproducibility depends on parameterizing paths rather than hardcoding them across scripts.
+cfg <- load_config("config/config.yml")
+str(cfg)
+```
+
+## 2) Data ingestion
+
+```{r}
+# Data ingestion is intentionally thin: this function should be deterministic and side-effect free.
+# Any schema or quality assumptions are enforced in validation, not in read-time heuristics.
+raw_data <- load_input_data(cfg)
+raw_data
+```
+
+## 3) Validation and assumptions
+
+```{r}
+# Validation enforces minimum inferential assumptions:
+#  - required predictors/outcome present
+#  - sufficient row count for model fitting
+#  - numeric typing for model terms
+#  - no missing values in required fields
+valid_data <- validate_input_data(raw_data)
+valid_data
+```
+
+### Learning checkpoint: intentional validation failure
+
+This chunk deliberately creates a bad dataset to show how validation errors communicate broken assumptions.
+
+```{r}
+bad_data <- tibble::tibble(x = c(1, NA), y = c(2, 3))
+
+tryCatch(
+  validate_input_data(bad_data),
+  error = function(e) {
+	message("Expected validation error: ", e$message)
+	NULL
+  }
+)
+```
+
+## 4) Feature engineering
+
+```{r}
+# Feature expansion adds a polynomial term x^2.
+# This is a simple nonlinear approximation strategy often used as a baseline before richer models.
+features <- prepare_features(valid_data)
+features
+```
+
+## 5) Baseline model estimation
+
+```{r}
+# OLS with a quadratic term balances interpretability and flexibility.
+# In production research, one would compare this against alternatives using time-aware validation.
+model <- fit_baseline_model(features)
+summary(model)
+```
+
+## 6) Prediction and metric construction
+
+```{r}
+# Predictions are generated on the same feature set in this baseline example.
+# Metrics are in-sample and should not be interpreted as out-of-sample generalization quality.
+predictions <- generate_predictions(model, features)
+metrics <- compute_metrics(predictions)
+
+predictions
+metrics
+```
+
+### Learning checkpoint: inspect residual behavior
+
+```{r}
+learning_diagnostics <- predictions %>%
+  mutate(
+	residual = y - prediction,
+	abs_residual = abs(residual)
+  )
+
+learning_diagnostics
+
+summary(learning_diagnostics$residual)
+```
+
+## 7) End-to-end orchestration
+
+```{r}
+# The orchestration helper is useful for clean API boundaries and integration tests.
+# It executes all stages and returns named artifacts for downstream inspection.
+out <- run_nowcast_pipeline("config/config.yml")
+names(out)
+out$metrics
+```
+
+### Learning checkpoint: compare manual vs orchestrated metrics
+
+The following chunk confirms that manual stage-by-stage execution matches the orchestrated pipeline output.
+
+```{r}
+all.equal(metrics, out$metrics)
+```
+
+## Notes for extension
+
+1. Add temporal train/test split before metric calculation.
+2. Add robust diagnostics (residual normality, heteroskedasticity, leverage/influence).
+3. Add model comparison table for alternative specifications.

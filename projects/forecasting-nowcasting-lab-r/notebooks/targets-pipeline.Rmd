@@ -1,0 +1,100 @@
+---
+title: "Targets Pipeline Notebook (R Markdown)"
+output: html_document
+---
+
+## Purpose
+
+This notebook explains `_targets.R` as a reproducibility mechanism. The pipeline formalizes dependency tracking between configuration, data transformations, model artifacts, and reporting outputs.
+
+## Setup
+
+```{r}
+library(targets)
+source("R/core.R")
+```
+
+## Learning checkpoint: enumerate planned targets
+
+```{r}
+# tar_manifest() provides a compact map of what the pipeline plans to build.
+# Use this before execution to understand the computational graph.
+tar_manifest()
+```
+
+## 1) Pipeline script inspection
+
+```{r}
+# Reading the target script is useful for auditing computational lineage.
+# In an academic context, this helps demonstrate that outputs are derived from explicit dependencies.
+cat(readLines("_targets.R"), sep = "\n")
+```
+
+## 2) Why targets matter for research reproducibility
+
+The `targets` framework:
+
+- tracks upstream/downstream dependencies
+- re-runs only invalidated steps
+- stores computational artifacts for inspection
+- improves auditability of empirical results
+
+## 3) Execute pipeline
+
+```{r}
+# tar_make() executes only what is outdated.
+# This property is critical for reproducible iteration in empirical projects.
+tar_make()
+```
+
+### Learning checkpoint: identify what is currently outdated
+
+```{r}
+# Immediately after a successful run, this should usually return character(0).
+# If not empty, the listed targets are pending rebuild.
+tar_outdated()
+```
+
+## 4) Inspect key target artifacts
+
+```{r}
+# Extracting target outputs makes post-hoc methodological review straightforward.
+# Metrics and predictions are typically the first artifacts examined in model evaluation.
+metrics <- tar_read(metrics)
+predictions <- tar_read(predictions)
+
+metrics
+head(predictions, 10)
+```
+
+### Learning checkpoint: inspect target metadata
+
+```{r}
+# Metadata includes timing, size, and hash signals useful for auditability.
+tar_meta(fields = c(name, time, bytes))
+```
+
+## 5) Report target behavior
+
+```{r}
+# The report target is resilient to missing Quarto CLI.
+# If Quarto is unavailable, a sentinel value is produced instead of hard-failing the full pipeline.
+tar_read(report)
+```
+
+### Learning checkpoint: verify report fallback behavior
+
+```{r}
+report_value <- tar_read(report)
+if (identical(report_value, "quarto-not-installed")) {
+  message("Quarto CLI not found: fallback sentinel returned as designed.")
+} else {
+  message("Report artifact generated at: ", report_value)
+}
+```
+
+## Notes for extension
+
+- Add separate targets for train/test splits.
+- Add target branches for model families.
+- Add diagnostics target for residual plots and model assumptions.
