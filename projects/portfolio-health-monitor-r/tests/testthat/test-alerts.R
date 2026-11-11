@@ -1,6 +1,6 @@
 test_that("alerts table has three rules", {
-  p <- load_return_series("data_raw/portfolio_returns.csv", "date", "portfolio_return")
-  b <- load_return_series("data_raw/benchmark_returns.csv", "date", "benchmark_return")
+  p <- load_return_series(testthat::test_path("..", "..", "data_raw", "portfolio_returns.csv"), "date", "portfolio_return")
+  b <- load_return_series(testthat::test_path("..", "..", "data_raw", "benchmark_returns.csv"), "date", "benchmark_return")
   m <- compute_monitoring_metrics(p, b, rolling_window = 5)
 
   thresholds <- list(

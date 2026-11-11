@@ -1,6 +1,6 @@
 test_that("alerts table has alert flag", {
-  m <- load_manager_returns("data_raw/manager_returns.csv")
-  b <- load_benchmark_returns("data_raw/benchmark_returns.csv")
+  m <- load_manager_returns(testthat::test_path("..", "..", "data_raw", "manager_returns.csv"))
+  b <- load_benchmark_returns(testthat::test_path("..", "..", "data_raw", "benchmark_returns.csv"))
   a <- compute_active_returns(m, b)
 
   out <- flag_underperformance(a, threshold = -0.01, persistence_periods = 2)
