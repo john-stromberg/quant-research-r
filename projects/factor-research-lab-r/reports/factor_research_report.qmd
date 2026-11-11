@@ -1,0 +1,31 @@
+---
+title: "Factor Research Lab Report"
+format: html
+execute:
+  echo: false
+---
+
+## Analytical question
+
+Does the momentum factor produce consistent long-short returns and positive information coefficient in this sample?
+
+## Method summary
+
+- Build factor signals from security-level panel data
+- Rank into cross-sectional quantiles each period
+- Form top-minus-bottom long-short return series
+- Compute IC and aggregate diagnostics
+- Add macro controls from FRED for context
+
+## Expected outputs
+
+- `data_processed/momentum_long_short.csv`
+- `data_processed/momentum_ic.csv`
+- `data_processed/factor_summary.csv`
+
+## Decision memo
+
+- **Question:** Should momentum remain in the research candidate set?
+- **Evidence:** Long-short return profile and mean IC.
+- **Interpretation:** Evaluate sign consistency and volatility.
+- **Action:** Keep, refine, or reject signal.

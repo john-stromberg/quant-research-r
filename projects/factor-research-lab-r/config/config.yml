@@ -1,0 +1,9 @@
+data:
+  panel_csv: data_raw/security_panel.csv
+  fred_series:
+    growth_proxy: INDPRO
+    inflation_proxy: CPIAUCSL
+
+model:
+  n_quantiles: 5
+  rebalance_frequency: monthly
